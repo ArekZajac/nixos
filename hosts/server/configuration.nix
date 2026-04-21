@@ -4,8 +4,12 @@
   networking.hostName = "server";
 
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
+    ../../modules/server
   ];
 
-  system.stateVersion = lib.mkDefault "25.11";
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  system.stateVersion = "24.11";
 }

@@ -4,8 +4,11 @@
   networking.hostName = "desktop";
 
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
   ];
 
-  system.stateVersion = lib.mkDefault "25.11";
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  system.stateVersion = "25.11";
 }
