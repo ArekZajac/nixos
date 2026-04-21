@@ -19,7 +19,6 @@
   system.autoUpgrade = {
     enable = true;
     flake = "github:ArekZajac/nixos#server";
-    flags = [ "--update-input" "nixpkgs" ];
     dates = "04:00";
   };
 
