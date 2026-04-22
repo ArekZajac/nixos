@@ -19,6 +19,7 @@
       ];
       environment = {
         PORT = "45876";
+        KEY = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKX/gj7qUAtqniEMdgFj9yC8JvMFvLHafWQr7lTjmVlV";
       };
     };
 
