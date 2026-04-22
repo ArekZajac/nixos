@@ -4,7 +4,7 @@
   networking.hostName = "server";
 
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
     ../../modules/server
   ];
 
