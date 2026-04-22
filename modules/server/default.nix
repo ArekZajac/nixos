@@ -11,11 +11,9 @@
     dockerCompat = true;  # Allows 'docker' as CLI alias for podman
     defaultNetwork.settings.dns_enabled = true;
   };
-
-  # Set podman as backend for all oci-containers declarations
   virtualisation.oci-containers.backend = "podman";
 
-  # Automatically pull latest config from GitHub and rebuild
+  # Automatic rebuild
   system.autoUpgrade = {
     enable = true;
     flake = "github:ArekZajac/nixos/live#server";
@@ -27,6 +25,7 @@
     enable = true;
     allowedTCPPorts = [
       5678  # n8n
+      8090  # Beszel
     ];
   };
 

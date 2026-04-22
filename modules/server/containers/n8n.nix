@@ -16,9 +16,6 @@
     };
   };
 
-  # Create the data directory on the host before the container starts.
-  # n8n runs as the 'node' user (uid 1000) inside the container,
-  # so the directory needs to be owned by uid 1000 to be writable.
   systemd.tmpfiles.rules = [
     "d /var/lib/n8n 0750 1000 1000 -"
   ];
