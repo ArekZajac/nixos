@@ -29,4 +29,11 @@
       5678  # n8n
     ];
   };
+
+  # Power management
+  services.logind.lidSwitch = "ignore";
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+  '';
 }
