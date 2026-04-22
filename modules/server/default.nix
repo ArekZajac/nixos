@@ -18,7 +18,7 @@
   # Automatically pull latest config from GitHub and rebuild
   system.autoUpgrade = {
     enable = true;
-    flake = "github:ArekZajac/nixos#server";
+    flake = "github:ArekZajac/nixos/live#server";
     dates = "04:00";
   };
 
