@@ -1,0 +1,33 @@
+name: Update flake.lock
+
+on:
+  push:
+    branches:
+      - live
+    paths-ignore:
+      - "flake.lock" # Prevent infinite loop if action commits a new lock file
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Update flake.lock
+        run: nix flake update
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet flake.lock || (
+            git add flake.lock &&
+            git commit -m "chore: update flake.lock [skip ci]" &&
+            git push
+          )
