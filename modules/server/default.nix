@@ -26,6 +26,7 @@
     allowedTCPPorts = [
       5678  # n8n
       8090  # Beszel
+      8080  # Stirling PDF
     ];
   };
 
