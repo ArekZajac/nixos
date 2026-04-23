@@ -17,6 +17,8 @@
   system.autoUpgrade = {
     enable = true;
     flake = "github:ArekZajac/nixos/live#server";
+    allowReboot = false;
+    operation = "switch";
     dates = "04:00";
   };
 
