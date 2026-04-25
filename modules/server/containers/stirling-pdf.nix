@@ -14,7 +14,7 @@
       config.age.secrets.stirling-password.path
     ];
     environment = {
-      DOCKER_ENABLE_SECURITY = "true";
+      DISABLE_ADDITIONAL_FEATURES = "false";
       LANGS = "en_GB";
     };
   };
