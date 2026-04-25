@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   virtualisation.oci-containers.containers = {
@@ -24,10 +24,12 @@
         "/run/podman/podman.sock:/var/run/docker.sock:ro"
         "/var/lib/beszel-socket:/beszel_socket"
       ];
+      environmentFiles = [
+        config.age.secrets.beszel-key.path
+        config.age.secrets.beszel-token.path
+      ];
       environment = {
         LISTEN = "/beszel_socket/beszel.sock";
-        KEY = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKX/gj7qUAtqniEMdgFj9yC8JvMFvLHafWQr7lTjmVlV";
-        TOKEN = "a080-1b1b22be68-135c-3c402c4475";
       };
     };
 

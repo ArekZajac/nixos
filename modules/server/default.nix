@@ -5,10 +5,20 @@
     ./containers
   ];
 
+  # Agenix
+  age.secrets = {
+    beszel-key.file            = ../../secrets/beszel-key.age;
+    beszel-token.file          = ../../secrets/beszel-token.age;
+    n8n-user.file              = ../../secrets/n8n-user.age;
+    n8n-password.file          = ../../secrets/n8n-password.age;
+    stirling-user.file     = ../../secrets/stirling-user.age;
+    stirling-password.file = ../../secrets/stirling-password.age;
+  };
+
   # Container runtime
   virtualisation.podman = {
     enable = true;
-    dockerCompat = true;  # Allows 'docker' as CLI alias for podman
+    dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
   };
   virtualisation.oci-containers.backend = "podman";

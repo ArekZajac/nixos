@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   virtualisation.oci-containers.containers.stirling-pdf = {
@@ -9,8 +9,12 @@
       "/var/lib/stirling-pdf/configs:/configs"
       "/var/lib/stirling-pdf/logs:/logs"
     ];
+    environmentFiles = [
+      config.age.secrets.stirling-user.path
+      config.age.secrets.stirling-password.path
+    ];
     environment = {
-      DOCKER_ENABLE_SECURITY = "false";
+      DOCKER_ENABLE_SECURITY = "true";
       LANGS = "en_GB";
     };
   };
