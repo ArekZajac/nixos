@@ -7,10 +7,10 @@
 
   # Agenix
   age.secrets = {
-    beszel-key.file            = ../../secrets/beszel-key.age;
-    beszel-token.file          = ../../secrets/beszel-token.age;
-    n8n-user.file              = ../../secrets/n8n-user.age;
-    n8n-password.file          = ../../secrets/n8n-password.age;
+    beszel-key.file        = ../../secrets/beszel-key.age;
+    beszel-token.file      = ../../secrets/beszel-token.age;
+    n8n-user.file          = ../../secrets/n8n-user.age;
+    n8n-password.file      = ../../secrets/n8n-password.age;
     stirling-user.file     = ../../secrets/stirling-user.age;
     stirling-password.file = ../../secrets/stirling-password.age;
   };
@@ -39,6 +39,8 @@
       5678  # n8n
       8090  # Beszel
       8080  # Stirling PDF
+      8642  # Hermes Agent Gateway
+      9119  # Hermes Agent Dashboard
     ];
   };
 
