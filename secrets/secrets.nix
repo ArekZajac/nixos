@@ -12,4 +12,6 @@ in
   "n8n-password.age".publicKeys = allKeys;
   "stirling-user.age".publicKeys = allKeys;
   "stirling-password.age".publicKeys = allKeys;
+  "hermes-api-key.age".publicKeys = allKeys;
+  "open-webui-api-key.age".publicKeys = allKeys;
 }

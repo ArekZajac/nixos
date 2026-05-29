@@ -6,5 +6,6 @@
     ./beszel.nix
     ./stirling-pdf.nix
     ./hermes.nix
+    ./open-webui.nix
   ];
 }

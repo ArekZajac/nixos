@@ -13,6 +13,8 @@
     n8n-password.file      = ../../secrets/n8n-password.age;
     stirling-user.file     = ../../secrets/stirling-user.age;
     stirling-password.file = ../../secrets/stirling-password.age;
+    hermes-api-key.file    = ../../secrets/hermes-api-key.age;
+    open-webui-api-key.file = ../../secrets/open-webui-api-key.age;
   };
 
   # Container runtime
@@ -41,6 +43,7 @@
       8080  # Stirling PDF
       8642  # Hermes Agent Gateway
       9119  # Hermes Agent Dashboard
+      3000  # Open WebUI
     ];
   };
 

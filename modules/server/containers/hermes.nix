@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   virtualisation.oci-containers.containers.hermes = {
@@ -10,16 +10,21 @@
       "9119:9119"  # Web Dashboard
     ];
     volumes = [ "/var/lib/hermes:/opt/data" ];
+    environmentFiles = [
+      config.age.secrets.hermes-api-key.path
+    ];
     environment = {
       HERMES_DASHBOARD = "1";
       HERMES_DASHBOARD_HOST = "0.0.0.0";
       HERMES_DASHBOARD_PORT = "9119";
       HERMES_UID = "10000";
       HERMES_GID = "10000";
+      API_SERVER_ENABLED = "true";
+      API_SERVER_HOST = "0.0.0.0";
     };
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/hermes 0750 1000 1000 -"  # Owner must match HERMES_UID/HERMES_GID
+    "d /var/lib/hermes 0750 1000 1000 -"
   ];
 }
