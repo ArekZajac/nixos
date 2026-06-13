@@ -79,5 +79,6 @@
   # No hibernate in a dual boot, so zram instead of a swap partition.
   zramSwap.enable = true;
 
+  users.users.arek.initialPassword = "changeme";
   system.stateVersion = "25.11";
 }
