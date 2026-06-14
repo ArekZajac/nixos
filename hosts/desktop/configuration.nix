@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/desktop
+  ];
 
   networking.hostName = "desktop";
 
@@ -17,64 +20,15 @@
   hardware.graphics = { enable = true; enable32Bit = true; };
   hardware.nvidia = {
     modesetting.enable = true;   # required for Wayland
-    open = true;                 # Ada supports the open modules; flip to false if you hit trouble
+    open = true;                 # Ada supports the open modules
     nvidiaSettings = true;
     powerManagement.enable = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Niri
-  programs.niri.enable = true;
-
-  # Login: greetd + tuigreet launching a niri session.
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri-session";
-      user = "greeter";
-    };
-  };
-
-  # Minimal Wayland toolkit
-  environment.systemPackages = with pkgs; [
-    fuzzel              # app launcher
-    alacritty           # terminal
-    waybar              # status bar
-    mako                # notifications
-    swaybg              # wallpaper
-    swaylock            # screen locker
-    wl-clipboard
-    xwayland-satellite  # lets X11 apps run under niri
-
-    chromium
-    discord
-    spotify
-  ];
-
-  # Swaylock needs a PAM entry to authenticate, or it can't unlock.
-  security.pam.services.swaylock = {};
-
-  # Polkit agent for GUI privilege prompts.
-  security.polkit.enable = true;
-  systemd.user.services.polkit-gnome-authentication-agent-1 = {
-    description = "polkit-gnome-authentication-agent-1";
-    wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      Restart = "on-failure";
-    };
-  };
-
-  # Gaming
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    localNetworkGameTransfer.openFirewall = true;
-  };
-  programs.gamemode.enable = true;
+  # Zsh
+  programs.zsh.enable = true;
+  users.users.arek.shell = pkgs.zsh;
 
   # No hibernate in a dual boot, so zram instead of a swap partition.
   zramSwap.enable = true;

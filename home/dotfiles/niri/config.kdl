@@ -1,0 +1,148 @@
+input {
+    keyboard {
+        xkb {
+            layout "gb"
+        }
+    }
+    mouse {}
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+
+// Point X11 apps (Steam, some games, Discord) at xwayland-satellite.
+environment {
+    DISPLAY ":0"
+}
+
+// Autostart
+spawn-at-startup "waybar"
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "swaybg" "-c" "#000000"
+spawn-at-startup "nm-applet" "--indicator"
+spawn-at-startup "blueman-applet"
+spawn-at-startup "sh" "-c" "wl-paste --watch cliphist store"
+// mako and swayidle are started by their Home Manager user services.
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot-%Y-%m-%d-%H-%M-%S.png"
+
+// Layout
+layout {
+    gaps 12
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 3
+        active-color "#fe8019"
+        inactive-color "#3c3836"
+    }
+    border {
+        off
+    }
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+// Keybinds
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // Apps
+    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "alacritty"; }
+    Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
+    Mod+B hotkey-overlay-title="Open Browser" { spawn "chromium"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock" "-f" "-c" "000000"; }
+
+    // Clipboard history via fuzzel
+    Mod+V { spawn "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
+
+    // Focus
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up    { focus-window-up; }
+    Mod+Down  { focus-window-down; }
+    Mod+H     { focus-column-left; }
+    Mod+L     { focus-column-right; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+
+    // Move windows / columns
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Down  { move-window-down; }
+
+    // Sizing
+    Mod+R { switch-preset-column-width; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+C { center-column; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    Mod+Q { close-window; }
+
+    // Workspaces
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+
+    // Screenshots
+    Print { screenshot; }
+    Mod+Print { screenshot-window; }
+    Shift+Print { screenshot-screen; }
+
+    // Audio / brightness / media keys
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86MonBrightnessUp   { spawn "brightnessctl" "set" "10%+"; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-"; }
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioNext { spawn "playerctl" "next"; }
+    XF86AudioPrev { spawn "playerctl" "previous"; }
+
+    // Session
+    Mod+Shift+E { quit; }
+}
+
+// Window rules
+// Rounded corners for everything.
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+}
+
+// Float the audio mixer.
+window-rule {
+    match app-id="pavucontrol"
+    open-floating true
+}
+
+// Steam: let its small popups float.
+window-rule {
+    match app-id="steam" title="^Friends List$"
+    open-floating true
+}
