@@ -283,8 +283,8 @@ in
 
   programs.git = {
     enable = true;
-    userName = "ArekZajac";
-    userEmail = "arekzajac@outlook.com";
+    settings.user.name = "ArekZajac";
+    settings.user.email = "arekzajac@outlook.com";
   };
 
   # Theming (GTK + cursor)

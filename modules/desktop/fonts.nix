@@ -2,7 +2,7 @@
 {
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     font-awesome                # waybar default icon set
     nerd-fonts.jetbrains-mono   # glyphs for bar / launcher / prompt
   ];
