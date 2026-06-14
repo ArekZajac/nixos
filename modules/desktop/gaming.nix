@@ -4,7 +4,8 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
-    localNetworkGameTransfer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+    dedicatedServer.openFirewall = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
 
     # Adds a "gamescope session" at login for big-picture style
